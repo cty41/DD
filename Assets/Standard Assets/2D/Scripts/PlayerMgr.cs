@@ -36,5 +36,15 @@ public class PlayerMgr : MonoBehaviour
 		CurrentHero = null;
 
 	}
+
+    public void SelectSkill(int idx)
+    {
+        CurrentHero.GetComponent<Pawn>().SelectSkill(idx);
+    }
+
+    public bool IsChoosingTarget()
+    {
+        return false;
+    }
 }
 

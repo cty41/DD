@@ -18,7 +18,7 @@ public class CombatMgr : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-
+        StartCombat();
 	}
 	
 	// Update is called once per frame
