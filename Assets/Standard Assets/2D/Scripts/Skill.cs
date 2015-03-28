@@ -6,11 +6,14 @@ public class Skill : MonoBehaviour
 {
     public float DamageMod = 1.0f;
     public float AccuracyMod = 1.0f;
+    //if is attack skill, these are attackable flags
+    public bool[] AttackPosition;
 
     //attack range, dot health, debuff, icon,etc
     // Use this for initialization
     void Start()
     {
+        
         //set up icon, skill desc
     }
 
@@ -19,10 +22,4 @@ public class Skill : MonoBehaviour
     {
 
     }
-
-    public void ChooseTarget()
-    {
-        //TODO
-    }
-
 }

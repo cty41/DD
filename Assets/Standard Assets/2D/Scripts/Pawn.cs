@@ -11,22 +11,35 @@ namespace AssemblyCSharpfirstpass
 		public int speed = 4;
 		public bool IsPlayer = false;
 
-        public Skill[] CombatSkills;
+        //0-3, 0->melee, 3->range
+        public int position;
+        public bool IsSelectingTarget { get; private set; } 
+
+        public GameObject[] CombatSkills;
+        private Skill  CurrentSkill;
+        public SpriteRenderer TargetIndicator; 
 
 		void Start()
 		{
+            IsSelectingTarget = false;
+            if (TargetIndicator != null)
+            {
+                TargetIndicator.enabled = false;
+            }
 			Debug.Log("Pawn Start");
 		}
 
 		void Update()
 		{
-            if (PlayerMgr.instance.IsChoosingTarget() && IsValidTarget() )
+            if (PlayerMgr.instance.IsChoosingTarget() && IsValidTarget() && Input.GetMouseButtonDown(0))
             {
-                Vector3 wp = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+                Vector3 wp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 touchPos = new Vector2(wp.x, wp.y);
                 if (GetComponent<Collider2D>() == Physics2D.OverlapPoint(touchPos))
                 {
-
+                    //TODO, use skill -ty.cheng
+                    Debug.Log("hit the enemy, cancel selectable state");
+                    PlayerMgr.instance.UseSkill(this);
                 }
             }
             
@@ -35,16 +48,13 @@ namespace AssemblyCSharpfirstpass
 		void TakeDamage(int damage)
 		{
 			health -= damage;
+            Debug.Log(gameObject + " Take Damage " + damage + " Current Health " + health);
 			if (health <= 0)
 			{
 				health = 0;
 				//die
+                Debug.Log(gameObject + " Died ! ");
 			}
-		}
-
-		void Attack()
-		{
-
 		}
 
 		public void StartAction()
@@ -61,7 +71,7 @@ namespace AssemblyCSharpfirstpass
 
         public bool IsValidTarget()
         {
-            //TODO
+            //TODO -ty.cheng
             return !IsPlayer;
         }
 
@@ -69,7 +79,48 @@ namespace AssemblyCSharpfirstpass
         {
             if (CombatSkills.Length > 0)
             {
-                CombatSkills[idx].ChooseTarget();
+                IsSelectingTarget = true;
+                CurrentSkill = CombatSkills[idx].GetComponent<Skill>();
+                for (int i = 0; i < CurrentSkill.AttackPosition.Length; ++i)
+                {
+                    if (CurrentSkill.AttackPosition[i])
+                    {
+                        foreach ( GameObject monster in CombatMgr.instance.Monsters)
+                        {
+                            var p = monster.GetComponent<Pawn>();
+                            if(p.position == i)
+                            {
+                                p.SetSelectable();
+                                break;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+
+        //TODO -ty.cheng
+        public void CancelSkill()
+        {
+            IsSelectingTarget = false;
+        }
+
+        public void SetSelectable()
+        {
+            //
+            if (TargetIndicator != null)
+            {
+                Debug.Log("Show Target indicator pawn gameobj " + this.gameObject + " indicator gameobj " + TargetIndicator.gameObject);
+                TargetIndicator.enabled = true;
+            }
+        }
+
+        public void UseSkill(Pawn target)
+        {
+            if (CurrentSkill.DamageMod > 0)
+            {
+                target.TakeDamage(Convert.ToInt32(attack * CurrentSkill.DamageMod));
             }
         }
 	}

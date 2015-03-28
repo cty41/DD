@@ -42,9 +42,19 @@ public class PlayerMgr : MonoBehaviour
         CurrentHero.GetComponent<Pawn>().SelectSkill(idx);
     }
 
+    public void CancelSelectSkill()
+    {
+        CurrentHero.GetComponent<Pawn>().CancelSkill();
+    }
+
     public bool IsChoosingTarget()
     {
-        return false;
+        return CurrentHero != null && CurrentHero.GetComponent<Pawn>().IsSelectingTarget;
+    }
+
+    public void UseSkill(Pawn target)
+    {
+        CurrentHero.GetComponent<Pawn>().UseSkill(target);
     }
 }
 
