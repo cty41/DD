@@ -54,14 +54,20 @@ namespace AssemblyCSharpfirstpass
 				health = 0;
 				//die
                 Debug.Log(gameObject + " Died ! ");
+                CombatMgr.instance.HandleCombatEnded(this);
 			}
 		}
 
 		public void StartAction()
 		{
-			if (IsPlayer) {
-				PlayerMgr.instance.PlayerStart(this.gameObject);
-			}
+            if (IsPlayer)
+            {
+                PlayerMgr.instance.PlayerStart(this.gameObject);
+            }
+            else
+            {
+                //we are monster, use ai to select skill
+            }
 		}
 
 		public bool IsReadyToMakeAction()
@@ -104,6 +110,7 @@ namespace AssemblyCSharpfirstpass
         public void CancelSkill()
         {
             IsSelectingTarget = false;
+            CurrentSkill = null;
         }
 
         public void SetSelectable()
@@ -116,13 +123,29 @@ namespace AssemblyCSharpfirstpass
             }
         }
 
+        public void CancelSelectable()
+        {
+            if (TargetIndicator != null)
+            {
+                TargetIndicator.enabled = false;
+            }
+        }
+
         public void UseSkill(Pawn target)
         {
             if (CurrentSkill.DamageMod > 0)
             {
                 target.TakeDamage(Convert.ToInt32(attack * CurrentSkill.DamageMod));
             }
+
+            CancelSkill();
+            target.CancelSelectable();
+
+            CombatMgr.instance.NextAttacker();
+         
         }
+
+
 	}
 }
 

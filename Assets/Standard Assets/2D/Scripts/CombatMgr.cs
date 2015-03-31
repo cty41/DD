@@ -78,7 +78,7 @@ public class CombatMgr : MonoBehaviour
 	}
 
 	//return false means we restart again
-	bool NextAttacker()
+    public bool NextAttacker()
 	{
 		int j;
 		for (int i = 0; i < PawnArray.Length; ++i) {
@@ -97,5 +97,39 @@ public class CombatMgr : MonoBehaviour
 		CurrentAttacker.StartAction();
 		return false;
 	}
+
+    public void HandleCombatEnded(Pawn victim)
+    {
+        if (!victim.IsPlayer)
+        {
+            foreach (GameObject monster in Monsters)
+            {
+                if (monster == victim.gameObject)
+                {
+                    Monsters.Remove(victim.gameObject);
+                    break;
+                }
+            }
+            if (Monsters.Count == 0)
+            {
+                Debug.Log("Heroes win!");
+            }
+        }
+        else
+        {
+            foreach (GameObject hero in Heroes)
+            {
+                if (hero == victim.gameObject)
+                {
+                    Heroes.Remove(victim.gameObject);
+                    break;
+                }
+            }
+            if (Heroes.Count == 0)
+            {
+                Debug.Log("Heroes lose! game over");
+            }
+        }
+    }
 }
 
