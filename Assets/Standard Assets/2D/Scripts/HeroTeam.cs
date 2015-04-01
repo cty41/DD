@@ -32,6 +32,7 @@ public class HeroTeam : MonoBehaviour
 
     public void Init()
     {
+        Debug.Log("HeroTeam Init");
         Heroes = new List<GameObject>();
     }
 
