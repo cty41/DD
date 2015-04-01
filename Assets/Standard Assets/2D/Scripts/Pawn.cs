@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 
 
+
 namespace AssemblyCSharpfirstpass
 {
 	public class Pawn : MonoBehaviour
@@ -16,7 +17,7 @@ namespace AssemblyCSharpfirstpass
         public bool IsSelectingTarget { get; private set; } 
 
         public GameObject[] CombatSkills;
-        private Skill  CurrentSkill;
+        public Skill  CurrentSkill { get; private set; } 
         public SpriteRenderer TargetIndicator; 
 
 		void Start()
@@ -31,7 +32,7 @@ namespace AssemblyCSharpfirstpass
 
 		void Update()
 		{
-            if (PlayerMgr.instance.IsChoosingTarget() && IsValidTarget() && Input.GetMouseButtonDown(0))
+            if (PlayerMgr.instance.IsChoosingTarget() && IsValidTarget() && Input.GetMouseButtonUp(0))
             {
                 Vector3 wp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 Vector2 touchPos = new Vector2(wp.x, wp.y);
@@ -67,6 +68,7 @@ namespace AssemblyCSharpfirstpass
             else
             {
                 //we are monster, use ai to select skill
+                gameObject.GetComponent<AIController>().AIStart();
             }
 		}
 
@@ -83,27 +85,45 @@ namespace AssemblyCSharpfirstpass
 
         public void SelectSkill(int idx)
         {
+            Debug.Log("Pawn SelectSkill length " + CombatSkills.Length + " CurrentSkillIdx " + idx);
             if (CombatSkills.Length > 0)
             {
                 IsSelectingTarget = true;
                 CurrentSkill = CombatSkills[idx].GetComponent<Skill>();
+                ShowSelectableTarget();
+            }
+        }
+
+        private void ShowSelectableTarget()
+        {
+            if (IsPlayer)
+            {
                 for (int i = 0; i < CurrentSkill.AttackPosition.Length; ++i)
                 {
                     if (CurrentSkill.AttackPosition[i])
                     {
-                        foreach ( GameObject monster in CombatMgr.instance.Monsters)
+                        foreach (GameObject monster in CombatMgr.instance.Monsters)
                         {
-                            var p = monster.GetComponent<Pawn>();
-                            if(p.position == i)
+                            Pawn p = monster.GetComponent<Pawn>();
+                            if (p.position == i)
                             {
                                 p.SetSelectable();
-                                break;
                             }
                         }
-                        
                     }
                 }
+
             }
+            else
+            {
+                AIController AI = gameObject.GetComponent<AIController>();
+
+                if (AI != null)
+                {
+                    AI.SelectTarget();
+                }
+            }
+
         }
 
         //TODO -ty.cheng
@@ -111,6 +131,11 @@ namespace AssemblyCSharpfirstpass
         {
             IsSelectingTarget = false;
             CurrentSkill = null;
+        }
+
+        public bool IsSelectable()
+        {
+            return TargetIndicator.enabled;
         }
 
         public void SetSelectable()

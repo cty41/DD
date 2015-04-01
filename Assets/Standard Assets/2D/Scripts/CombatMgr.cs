@@ -11,24 +11,26 @@ public class CombatMgr : MonoBehaviour
 
 	public Pawn CurrentAttacker = null;
 
-	private GameObject[] PawnArray;
+    public List<GameObject> PawnArray { get; private set; }
     public List<GameObject> Heroes { get; private set;}
     public List<GameObject> Monsters { get; private set;}
 
 
 	void Awake()
 	{
-		
+        instance = this;
+        PawnArray = new List<GameObject>();
+        Heroes = new List<GameObject>();
+        Monsters = new List<GameObject>();
 	}
 	// Use this for initialization
 	void Start ()
 	{
         Debug.Log("CombatMgr Start");
-        instance = this;
-        Heroes = new List<GameObject>();
-        Monsters = new List<GameObject>();
+        
+
         //TODO, should not call here , change later -ty.cheng
-        StartCombat();
+        //StartCombat();
 	}
 	
 	// Update is called once per frame
@@ -37,25 +39,23 @@ public class CombatMgr : MonoBehaviour
 	
 	}
 
-	void StartCombat()
+    public void AddPawn(GameObject p)
+    {
+        PawnArray.Add(p);
+        if (p.GetComponent<Pawn>().IsPlayer)
+        {
+            Heroes.Add(p);
+        }
+        else
+        {
+            Monsters.Add(p);
+        }
+    }
+
+	public void StartCombat()
 	{
         Debug.Log("StartCombat");
 		CurrentRound = 0;
-
-        PawnArray = GameObject.FindGameObjectsWithTag("Pawn");
-        Debug.Log("StartCombat PawnArray length", PawnArray[0]);
-
-        for (int i = 0; i < PawnArray.Length; ++i)
-        {
-            if (PawnArray[i].GetComponent<Pawn>().IsPlayer)
-            {
-                Heroes.Add(PawnArray[i]);
-            }
-            else
-            {
-                Monsters.Add(PawnArray[i]);
-            }
-        }
 
 		NextRound ();
 	}
@@ -63,7 +63,7 @@ public class CombatMgr : MonoBehaviour
 	void NextRound()
 	{
         //TODO, sort by speed -ty.cheng
-		for(int i = 0 ; i < PawnArray.Length; ++i)
+		for(int i = 0 ; i < PawnArray.Count; ++i)
 		{
 			Pawn p = PawnArray[i].GetComponent<Pawn>();
 			if( p != null && p.IsPlayer)
@@ -81,11 +81,13 @@ public class CombatMgr : MonoBehaviour
     public bool NextAttacker()
 	{
 		int j;
-		for (int i = 0; i < PawnArray.Length; ++i) {
-			if(PawnArray[i] == CurrentAttacker)
+        Debug.Log("NextAttacker CurrentPawnArray Length" + PawnArray.Count);
+        for (int i = 0; i < PawnArray.Count; ++i)
+        {
+			if(PawnArray[i] == CurrentAttacker.gameObject)
 			{
 				j = i+1;
-				if(j < PawnArray.Length)
+                if (j < PawnArray.Count)
 				{
 					CurrentAttacker = PawnArray[j].GetComponent<Pawn>();
 					CurrentAttacker.StartAction();
@@ -93,6 +95,7 @@ public class CombatMgr : MonoBehaviour
 				}
 			}
 		}
+        Debug.Log("NextAttacker --> we restart again " + PawnArray[0] );
 		CurrentAttacker = PawnArray[0].GetComponent<Pawn>();
 		CurrentAttacker.StartAction();
 		return false;

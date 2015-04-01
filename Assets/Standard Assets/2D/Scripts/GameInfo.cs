@@ -12,14 +12,13 @@ public class GameInfo : MonoBehaviour
     {
         instance = this;
         heroTeam = gameObject.GetComponent<HeroTeam>();
-        SpawnHero();
         //SpawnMonster();
     }
     // Use this for initialization
     void Start()
     {
         Debug.Log("GameInfo Start");
-
+        SpawnHero();
     }
 
     // Update is called once per frame
@@ -36,12 +35,14 @@ public class GameInfo : MonoBehaviour
         heroTeam.Init();
         heroTeam.Heroes.Add(hero);
         Debug.Log("");
+        CombatMgr.instance.AddPawn(hero);
     }
 
     public void SpawnMonster()
     {
         GameObject monster = Instantiate(Resources.Load("Monsters/brigand", typeof(GameObject))) as GameObject;
         Debug.Log("GameInfo SpawnMonster" + monster);
+        CombatMgr.instance.AddPawn(monster);
     }
 
     public void StartCombat()
@@ -50,6 +51,7 @@ public class GameInfo : MonoBehaviour
         {
             heroTeam.ChangeState(HeroTeam.TeamState.TS_Combat);
             SpawnMonster();
+            CombatMgr.instance.StartCombat();
         }
     }
 
