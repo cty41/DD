@@ -35,6 +35,7 @@ public class GameInfo : MonoBehaviour
         //refactor here?, ty.cheng
         heroTeam.Init();
         heroTeam.Heroes.Add(hero);
+        Debug.Log("");
     }
 
     public void SpawnMonster()
