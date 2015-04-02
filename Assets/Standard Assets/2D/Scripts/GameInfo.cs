@@ -8,12 +8,16 @@ public class GameInfo : MonoBehaviour
 
     public HeroTeam heroTeam { get; private set; }
 
+	public Scene backGround { get; private set; }
+
     void Awake()
     {
         instance = this;
         heroTeam = gameObject.GetComponent<HeroTeam>();
+		backGround = gameObject.GetComponent<Scene> ();
         SpawnHero();
         //SpawnMonster();
+		SpawnScene();
     }
     // Use this for initialization
     void Start()
@@ -43,6 +47,12 @@ public class GameInfo : MonoBehaviour
         GameObject monster = Instantiate(Resources.Load("Monsters/brigand", typeof(GameObject))) as GameObject;
         Debug.Log("GameInfo SpawnMonster" + monster);
     }
+
+	public void SpawnScene()
+	{
+		backGround.Init();
+		//backGround.Cells.Add (cell);
+	}
 
     public void StartCombat()
     {

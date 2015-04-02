@@ -58,7 +58,7 @@ public class UIMgr : MonoBehaviour {
         foreach (GameObject button in SkillButtons)
         {
             Debug.Log("DisableSkillButtons" + button);
-            button.GetComponent<Button>().interactable = false;
+            //button.GetComponent<Button>().interactable = false;
         }
     }
 }
