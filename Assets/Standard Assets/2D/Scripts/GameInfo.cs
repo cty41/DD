@@ -15,7 +15,7 @@ public class GameInfo : MonoBehaviour
         instance = this;
         heroTeam = gameObject.GetComponent<HeroTeam>();
 		backGround = gameObject.GetComponent<Scene> ();
-        SpawnHero();
+
         //SpawnMonster();
 		SpawnScene();
     }
@@ -23,7 +23,7 @@ public class GameInfo : MonoBehaviour
     void Start()
     {
         Debug.Log("GameInfo Start");
-
+        SpawnHero();
     }
 
     // Update is called once per frame
@@ -40,12 +40,14 @@ public class GameInfo : MonoBehaviour
         heroTeam.Init();
         heroTeam.Heroes.Add(hero);
         Debug.Log("");
+        CombatMgr.instance.AddPawn(hero);
     }
 
     public void SpawnMonster()
     {
         GameObject monster = Instantiate(Resources.Load("Monsters/brigand", typeof(GameObject))) as GameObject;
         Debug.Log("GameInfo SpawnMonster" + monster);
+        CombatMgr.instance.AddPawn(monster);
     }
 
 	public void SpawnScene()
@@ -60,6 +62,7 @@ public class GameInfo : MonoBehaviour
         {
             heroTeam.ChangeState(HeroTeam.TeamState.TS_Combat);
             SpawnMonster();
+            CombatMgr.instance.StartCombat();
         }
     }
 
