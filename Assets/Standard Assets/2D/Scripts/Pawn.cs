@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -7,7 +8,8 @@ namespace AssemblyCSharpfirstpass
 {
 	public class Pawn : MonoBehaviour
 	{
-		public int health = 20;
+        public int MaxHealth = 20;
+		public int health = 0;
 		public int attack = 5;
 		public int speed = 4;
 		public bool IsPlayer = false;
@@ -18,16 +20,31 @@ namespace AssemblyCSharpfirstpass
 
         public GameObject[] CombatSkills;
         public Skill  CurrentSkill { get; private set; } 
-        public SpriteRenderer TargetIndicator; 
+        public SpriteRenderer TargetIndicator;
+
+        public GameObject healthBar;
+        public Image healthBarImage;
+        public Collider2D collider;
+
+        public GameObject canvas;
 
 		void Start()
 		{
+            health = MaxHealth;
             IsSelectingTarget = false;
             if (TargetIndicator != null)
             {
                 TargetIndicator.enabled = false;
             }
 			Debug.Log("Pawn Start");
+            healthBar = Instantiate(Resources.Load("Overlays/healthbar", typeof(GameObject))) as GameObject;
+
+            collider = gameObject.GetComponent<Collider2D>();
+
+            GameObject full = healthBar.transform.Find("healthbar_full").gameObject;
+            Debug.Log("find the real health bar " + full);
+            healthBarImage = full.GetComponent<Image>();
+            healthBarImage.fillAmount = 1.0f;
 		}
 
 		void Update()
@@ -43,8 +60,22 @@ namespace AssemblyCSharpfirstpass
                     PlayerMgr.instance.UseSkill(this);
                 }
             }
-            
+            UpdateHealthBar();
 		}
+
+        void UpdateHealthBar()
+        {
+            //update position 
+            canvas = GameObject.FindGameObjectWithTag("Canvas");
+            healthBar.transform.SetParent(canvas.transform);
+            Vector3 offset = new Vector3(0, -collider.bounds.size.y * 0.5f, 0);
+            Vector3 screenPos = Camera.main.WorldToViewportPoint(gameObject.transform.position + offset);
+            //Debug.Log("Pawn " + this + " ViewportPoint " + screenPos);
+            //-10.f hard code coded
+            healthBar.transform.position = new Vector3(screenPos.x * Screen.width, screenPos.y * Screen.height - 10.0f, healthBar.transform.position.z);
+
+            healthBarImage.fillAmount = health / (float)MaxHealth;
+        }
 
 		void TakeDamage(int damage)
 		{
