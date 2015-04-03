@@ -6,7 +6,7 @@ public class Cell : MonoBehaviour
 	// public
 
 	// private
-	private SpriteRenderer sceneRenderer;
+	private SpriteRenderer cellSprite;
 	
 	void Start ()
 	{
@@ -18,16 +18,19 @@ public class Cell : MonoBehaviour
 	
 	}
 
-	public void Init(int index)
+	public void Init(int index, string path)
 	{
 		// string
 		//TODO change the transform position for test - gt.jiang
-		sceneRenderer = GetComponent<SpriteRenderer> ();
-		float imgW = sceneRenderer.bounds.size.x;
-		
-		Vector3 newPosition = new Vector3 (index * imgW, 0f, 0f);
-		this.transform.position = newPosition;
+		float imgW;
 
-		//sceneRenderer.sprite = .
+		cellSprite = GetComponent<SpriteRenderer> ();
+		
+		this.transform.localScale += new Vector3(.5f, .5f, .5f);
+
+		imgW = cellSprite.bounds.size.x;
+		this.transform.position = new Vector3 (index * imgW, 0, 0);
+		
+		cellSprite.sprite = Resources.Load (path, typeof(Sprite)) as Sprite;
 	}
 }

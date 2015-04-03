@@ -24,6 +24,7 @@ public class GameInfo : MonoBehaviour
     {
         Debug.Log("GameInfo Start");
         SpawnHero();
+		InitCamera ();
     }
 
     // Update is called once per frame
@@ -54,6 +55,12 @@ public class GameInfo : MonoBehaviour
 	{
 		backGround.Init();
 		//backGround.Cells.Add (cell);
+	}
+
+	public void InitCamera()
+	{
+		//GameObject camera = Instantiate(Resources.Load("Scene/Main Camera", typeof(GameObject))) as GameObject;
+		Camera2DFollow.instance.Init ();
 	}
 
     public void StartCombat()

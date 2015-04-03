@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityStandardAssets._2D
 {
-    public class Camera2DFollow : MonoBehaviour
+    public class Camera2DFollowTest : MonoBehaviour
     {
         public Transform target;
         public float damping = 1;
