@@ -6,7 +6,7 @@ public class Cell : MonoBehaviour
 	// public
 
 	// private
-	private SpriteRenderer cellSprite;
+	public SpriteRenderer cellSprite;
 	
 	void Start ()
 	{
@@ -26,7 +26,7 @@ public class Cell : MonoBehaviour
 
 		cellSprite = GetComponent<SpriteRenderer> ();
 		
-		this.transform.localScale += new Vector3(.5f, .5f, .5f);
+		//this.transform.localScale += new Vector3(.5f, .5f, .5f);
 
 		imgW = cellSprite.bounds.size.x;
 		this.transform.position = new Vector3 (index * imgW, 0, 0);

@@ -13,9 +13,10 @@ namespace AssemblyCSharpfirstpass
 		public int attack = 5;
 		public int speed = 4;
 		public bool IsPlayer = false;
-
+        public Vector2 velocity;
         //0-3, 0->melee, 3->range
         public int position;
+        public float uniformScale = 1;
         public bool IsSelectingTarget { get; private set; } 
 
         public GameObject[] CombatSkills;
@@ -45,7 +46,20 @@ namespace AssemblyCSharpfirstpass
             Debug.Log("find the real health bar " + full);
             healthBarImage = full.GetComponent<Image>();
             healthBarImage.fillAmount = 1.0f;
+
+            transform.localScale = new Vector3(uniformScale, uniformScale, uniformScale);
+
+            float posX = 0;
+            float posY = 0 - GameInfo.instance.backGround.cellHeight * 0.5f + 
+                gameObject.GetComponent<SpriteRenderer>().sprite.bounds.size.y * 0.5f * uniformScale;
+            float posZ = transform.position.z;
+            transform.position = new Vector3( posX, posY, posZ);
 		}
+
+        void FixedUpdate()
+        {
+            transform.position += new Vector3(velocity.x, velocity.y, 0) * Time.smoothDeltaTime;
+        }
 
 		void Update()
 		{
