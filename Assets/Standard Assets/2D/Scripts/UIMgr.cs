@@ -11,12 +11,19 @@ public class UIMgr : MonoBehaviour {
 
     //use for combat debug
     private bool IsInCombat = false;
+    public float CombatUIHeight { get; private set; }
+
     void Awake()
     {
         instance = this;
     }
 	void Start () {
-       
+        GameObject decor = GameObject.Find("decor_left");
+        if (decor != null)
+        {
+            CombatUIHeight = decor.GetComponent<RawImage>().texture.height;
+            Debug.Log(" CombatUIHeight " + CombatUIHeight);
+        }
 	}
 	
 	// Update is called once per frame

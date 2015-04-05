@@ -7,7 +7,10 @@ public class Scene : MonoBehaviour
 	// pulbic
 	public List<string> Cells;
 
-    public float cellHeight;
+    public float cellWidth { get; private set; }
+    public float cellHeight { get; private set; }
+    public float cellPosY { get; private set; }
+    public float sceneStartX, sceneEndX;
 
 	void Awark()
 	{
@@ -38,8 +41,18 @@ public class Scene : MonoBehaviour
 			Debug.Log("");
 			Cell wall = Instantiate(Resources.Load("Scene/Corridor", typeof(Cell))) as Cell;
 			wall.Init (i, path);
-            cellHeight  = wall.cellSprite.sprite.bounds.size.y;
+            if (i == 0)
+            {
+                cellWidth = wall.cellSprite.sprite.bounds.size.x;
+                cellHeight = wall.cellSprite.sprite.bounds.size.y;
+                sceneStartX = wall.transform.position.x - cellWidth * 0.5f;
+            }
+            else if (i == Cells.Count - 1)
+            {
+                sceneEndX = wall.transform.position.x + cellWidth * 0.5f;
+            }
 
+            cellPosY = wall.transform.position.y;
 			Cell midGround = Instantiate(Resources.Load("Scene/Corridor", typeof(Cell))) as Cell;
 			midGround.Init (i, "Scene/weald.corridor_mid");
 

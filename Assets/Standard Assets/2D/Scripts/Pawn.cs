@@ -26,7 +26,7 @@ namespace AssemblyCSharpfirstpass
         public GameObject healthBar;
         public Image healthBarImage;
         public Collider2D collider;
-
+        public SpriteRenderer pawnSprite { get; private set; } 
         public GameObject canvas;
 
 		void Start()
@@ -41,6 +41,7 @@ namespace AssemblyCSharpfirstpass
             healthBar = Instantiate(Resources.Load("Overlays/healthbar", typeof(GameObject))) as GameObject;
 
             collider = gameObject.GetComponent<Collider2D>();
+            pawnSprite = gameObject.GetComponent<SpriteRenderer>();
 
             GameObject full = healthBar.transform.Find("healthbar_full").gameObject;
             Debug.Log("find the real health bar " + full);
@@ -75,6 +76,8 @@ namespace AssemblyCSharpfirstpass
                 }
             }
             UpdateHealthBar();
+
+            GameInfo.instance.ClampInScene(this);
 		}
 
         void UpdateHealthBar()

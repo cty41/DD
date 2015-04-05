@@ -15,6 +15,7 @@ public class Camera2DFollow : MonoBehaviour
     private GameObject targetPawn;
     private float pawnWidth;
     private float pawnHeight;
+    private float cellHeight;
 	public static Camera2DFollow instance { get; private set; }
 	
 	void Awake()
@@ -35,6 +36,7 @@ public class Camera2DFollow : MonoBehaviour
         targetPawn = GameInfo.instance.heroTeam.Heroes[0];
         pawnWidth = targetPawn.GetComponent<SpriteRenderer>().sprite.bounds.size.x;
         pawnHeight = targetPawn.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
+        cellHeight = GameInfo.instance.backGround.cellHeight;
 	}
 	
 	
@@ -73,9 +75,21 @@ public class Camera2DFollow : MonoBehaviour
 		float targetX = transform.position.x;
 		float targetY = transform.position.y;
 
+        //camera x follow hero pos, y fixed on cell pos Y, TODO later -ty.cheng
+        Scene bg = GameInfo.instance.backGround;
+        float camWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
         targetX = m_Player.position.x + pawnWidth * 0.5f * scale;
-        targetY = m_Player.position.y;// -pawnHeight * 0.5f * scale;
-		
+        float minX = bg.sceneStartX + camWidth;
+        float maxX = bg.sceneEndX - camWidth;
+        Debug.Log("[CAM DEBUG] ==> targetX " + targetX + " minX " + minX + " maxX " + maxX + " camWidth " + camWidth);
+        targetX = Mathf.Clamp(targetX, minX, maxX);
+
+        //Ycam = Ycellcenter - CellHalfHeight + deltaY,YcellCenter = 0(world)
+        //deltaY = half cam height - UIHeight
+        //hard code 100 is pixel per unit for other sprites, refactor later
+        float cellPosY = GameInfo.instance.backGround.cellPosY;
+        targetY = (cellPosY - cellHeight / 2 + Camera.main.orthographicSize - UIMgr.instance.CombatUIHeight / 100.0f);
+        //Debug.Log("cellHeight " + cellHeight + " orthographicSize " + Camera.main.orthographicSize);
 		// If the player has moved beyond the x margin...
         //if (CheckXMargin())
         //{

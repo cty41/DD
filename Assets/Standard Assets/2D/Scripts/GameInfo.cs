@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using AssemblyCSharpfirstpass;
 
 public class GameInfo : MonoBehaviour
 {
@@ -84,5 +85,15 @@ public class GameInfo : MonoBehaviour
     public bool IsInCombat()
     {
         return heroTeam.teamState == HeroTeam.TeamState.TS_Combat;
+    }
+
+    public void ClampInScene(Pawn p)
+    {
+        Vector3 oldPos = p.transform.position;
+        //only clamp X now 
+
+        oldPos.x = Mathf.Clamp(oldPos.x, backGround.sceneStartX + p.pawnSprite.sprite.bounds.size.x * 0.5f,
+            backGround.sceneEndX - p.pawnSprite.sprite.bounds.size.x * 0.5f);
+        p.transform.position = oldPos;
     }
 }
