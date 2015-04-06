@@ -45,11 +45,12 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            p.velocity = new Vector2(-4, 0);
+            p.SetVelocity(new Vector2(-3, 0));
+
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            p.velocity = new Vector2(6, 0);
+            p.SetVelocity(new Vector2(4, 0));
         }
         else
         {

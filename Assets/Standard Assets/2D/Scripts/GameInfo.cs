@@ -96,4 +96,18 @@ public class GameInfo : MonoBehaviour
             backGround.sceneEndX - p.pawnSprite.sprite.bounds.size.x * 0.5f);
         p.transform.position = oldPos;
     }
+
+    public bool IsReachedSceneBound(Pawn p)
+    {
+        if (p.velocity.x > 0.0f)
+        {
+            return p.transform.position.x >= backGround.sceneEndX - p.pawnSprite.sprite.bounds.size.x * 0.5f;
+        }
+        else if (p.velocity.x < 0.0f)
+        {
+            return p.transform.position.x <= backGround.sceneStartX + p.pawnSprite.sprite.bounds.size.x * 0.5f;
+        }
+
+        return false;
+    }
 }

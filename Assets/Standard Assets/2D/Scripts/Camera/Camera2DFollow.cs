@@ -16,6 +16,7 @@ public class Camera2DFollow : MonoBehaviour
     private float pawnWidth;
     private float pawnHeight;
     private float cellHeight;
+    public Vector3 oldPos { get; private set; }
 	public static Camera2DFollow instance { get; private set; }
 	
 	void Awake()
@@ -109,6 +110,7 @@ public class Camera2DFollow : MonoBehaviour
         //targetY = Mathf.Clamp(targetY, minXAndY.y, maxXAndY.y);
 		
 		// Set the camera's position to the target position with the same z component.
+        oldPos = transform.position;
 		transform.position = new Vector3(targetX, targetY, transform.position.z);
 	}
 }

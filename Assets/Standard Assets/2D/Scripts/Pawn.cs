@@ -60,7 +60,9 @@ namespace AssemblyCSharpfirstpass
         void FixedUpdate()
         {
             transform.position += new Vector3(velocity.x, velocity.y, 0) * Time.smoothDeltaTime;
+            GameInfo.instance.ClampInScene(this);
         }
+
 
 		void Update()
 		{
@@ -77,7 +79,7 @@ namespace AssemblyCSharpfirstpass
             }
             UpdateHealthBar();
 
-            GameInfo.instance.ClampInScene(this);
+       
 		}
 
         void UpdateHealthBar()
@@ -92,6 +94,13 @@ namespace AssemblyCSharpfirstpass
             healthBar.transform.position = new Vector3(screenPos.x * Screen.width, screenPos.y * Screen.height - 10.0f, healthBar.transform.position.z);
 
             healthBarImage.fillAmount = health / (float)MaxHealth;
+        }
+
+        public void SetVelocity(Vector2 vel)
+        {
+            velocity = vel;
+            if (GameInfo.instance.IsReachedSceneBound(this))
+                velocity = Vector2.zero;
         }
 
 		void TakeDamage(int damage)
