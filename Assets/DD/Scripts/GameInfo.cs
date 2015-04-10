@@ -47,7 +47,7 @@ public class GameInfo : MonoBehaviour
 
     public void SpawnMonster()
     {
-        GameObject monster = Instantiate(Resources.Load("Monsters/brigand", typeof(GameObject))) as GameObject;
+        GameObject monster = Instantiate(Resources.Load("Monsters/brigand_cutthroat", typeof(GameObject))) as GameObject;
         Debug.Log("GameInfo SpawnMonster" + monster);
         CombatMgr.instance.AddPawn(monster);
     }

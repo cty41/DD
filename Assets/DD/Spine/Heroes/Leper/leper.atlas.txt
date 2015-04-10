@@ -1,0 +1,118 @@
+
+leper.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+belt
+  rotate: true
+  xy: 625, 347
+  size: 118, 85
+  orig: 118, 85
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 204, 287
+  size: 183, 178
+  orig: 183, 178
+  offset: 0, 0
+  index: -1
+cloak
+  rotate: false
+  xy: 2, 2
+  size: 107, 56
+  orig: 107, 56
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 710, 762
+  size: 266, 250
+  orig: 266, 250
+  offset: 0, 0
+  index: -1
+leftarm
+  rotate: false
+  xy: 826, 408
+  size: 101, 104
+  orig: 101, 104
+  offset: 0, 0
+  index: -1
+leftfeet
+  rotate: false
+  xy: 710, 633
+  size: 234, 127
+  orig: 234, 127
+  offset: 0, 0
+  index: -1
+lefthand
+  rotate: true
+  xy: 712, 311
+  size: 87, 122
+  orig: 87, 122
+  offset: 0, 0
+  index: -1
+leftlegguard
+  rotate: true
+  xy: 836, 276
+  size: 130, 85
+  orig: 130, 85
+  offset: 0, 0
+  index: -1
+leper.sprite.attack_chop
+  rotate: false
+  xy: 2, 467
+  size: 706, 545
+  orig: 706, 545
+  offset: 0, 0
+  index: -1
+rightarm
+  rotate: false
+  xy: 316, 76
+  size: 110, 75
+  orig: 110, 75
+  offset: 0, 0
+  index: -1
+rightfeet
+  rotate: false
+  xy: 389, 347
+  size: 234, 118
+  orig: 234, 118
+  offset: 0, 0
+  index: -1
+rightfeet2
+  rotate: false
+  xy: 710, 514
+  size: 233, 117
+  orig: 233, 117
+  offset: 0, 0
+  index: -1
+righthand
+  rotate: false
+  xy: 712, 400
+  size: 112, 112
+  orig: 112, 112
+  offset: 0, 0
+  index: -1
+rightlegguard
+  rotate: true
+  xy: 316, 153
+  size: 132, 109
+  orig: 132, 109
+  offset: 0, 0
+  index: -1
+sword
+  rotate: false
+  xy: 2, 60
+  size: 200, 405
+  orig: 200, 405
+  offset: 0, 0
+  index: -1
+underbelt
+  rotate: true
+  xy: 204, 101
+  size: 184, 110
+  orig: 184, 110
+  offset: 0, 0
+  index: -1

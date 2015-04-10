@@ -49,6 +49,8 @@ namespace AssemblyCSharpfirstpass
             spineMesh = gameObject.GetComponent<MeshRenderer>();
             boundBox = gameObject.GetComponent<BoxCollider2D>();
             skelAnim = gameObject.GetComponent<SkeletonAnimation>();
+            skelAnim.AnimationName = "idle";
+            skelAnim.loop = true;
 
             GameObject full = healthBar.transform.Find("healthbar_full").gameObject;
             Debug.Log("find the real health bar " + full);
@@ -94,14 +96,18 @@ namespace AssemblyCSharpfirstpass
         {
             //update position 
             canvas = GameObject.FindGameObjectWithTag("Canvas");
-            healthBar.transform.SetParent(canvas.transform);
+            if (healthBar != null)
+            {
+                            healthBar.transform.SetParent(canvas.transform);
             Vector3 offset = new Vector3(0, 0, 0);
             Vector3 screenPos = Camera.main.WorldToViewportPoint(gameObject.transform.position + offset);
             //Debug.Log("Pawn " + this + " ViewportPoint " + screenPos);
             //-10.f hard code coded
             healthBar.transform.position = new Vector3(screenPos.x * Screen.width, screenPos.y * Screen.height - 10.0f, healthBar.transform.position.z);
+            if (healthBarImage != null)
+                healthBarImage.fillAmount = health / (float)MaxHealth;
+            }
 
-            healthBarImage.fillAmount = health / (float)MaxHealth;
         }
 
         public void SetVelocity(Vector2 vel)
@@ -117,13 +123,14 @@ namespace AssemblyCSharpfirstpass
                 Debug.Log("[ANIM DEBUG] oldVelocity != velocity velocity " + velocity + " oldVelocity " + oldVelocity);
                 if (oldVelocity == Vector2.zero)
                 {
+                    Debug.Log("[ANIM DEBUG] play walk");
                     skelAnim.AnimationName = "walk";
                     skelAnim.loop = true;
                 }
                 else if (oldVelocity != Vector2.zero)
                 {
                     Debug.Log("[ANIM DEBUG] play idle");
-                    skelAnim.AnimationName = "Idle";
+                    skelAnim.AnimationName = "idle";
                     skelAnim.loop = true;
                 }
             }
