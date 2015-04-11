@@ -1,0 +1,145 @@
+
+brigand_cutthroat.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: true
+  xy: 799, 772
+  size: 250, 215
+  orig: 250, 215
+  offset: 0, 0
+  index: -1
+brigand_cutthroat.sprite.attack_lunge
+  rotate: false
+  xy: 2, 514
+  size: 795, 508
+  orig: 795, 508
+  offset: 0, 0
+  index: -1
+brigand_cutthroat.sprite.defend
+  rotate: true
+  xy: 2, 96
+  size: 416, 662
+  orig: 416, 662
+  offset: 0, 0
+  index: -1
+brigand_cutthroat.sprite.double_slice
+  rotate: true
+  xy: 799, 38
+  size: 732, 210
+  orig: 732, 210
+  offset: 0, 0
+  index: -1
+collar
+  rotate: false
+  xy: 666, 347
+  size: 128, 165
+  orig: 128, 165
+  offset: 0, 0
+  index: -1
+leftdagger
+  rotate: true
+  xy: 451, 42
+  size: 52, 143
+  orig: 52, 143
+  offset: 0, 0
+  index: -1
+lefthand
+  rotate: true
+  xy: 2, 2
+  size: 92, 248
+  orig: 92, 248
+  offset: 0, 0
+  index: -1
+leftleg
+  rotate: true
+  xy: 666, 170
+  size: 175, 120
+  orig: 175, 120
+  offset: 0, 0
+  index: -1
+leftlegguard
+  rotate: false
+  xy: 252, 8
+  size: 97, 86
+  orig: 97, 86
+  offset: 0, 0
+  index: -1
+rightleg
+  rotate: false
+  xy: 666, 7
+  size: 102, 161
+  orig: 102, 161
+  offset: 0, 0
+  index: -1
+rightlegguard
+  rotate: true
+  xy: 351, 12
+  size: 82, 98
+  orig: 82, 98
+  offset: 0, 0
+  index: -1
+
+brigand_cutthroat2.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+brigand_cutthroat.sprite.bandit_stabby
+  rotate: true
+  xy: 2, 248
+  size: 255, 638
+  orig: 255, 638
+  offset: 0, 0
+  index: -1
+brigand_cutthroat.sprite.uppercut_slice
+  rotate: true
+  xy: 2, 67
+  size: 179, 497
+  orig: 179, 497
+  offset: 0, 0
+  index: -1
+face
+  rotate: false
+  xy: 898, 110
+  size: 96, 106
+  orig: 96, 106
+  offset: 0, 0
+  index: -1
+hat
+  rotate: false
+  xy: 749, 71
+  size: 147, 145
+  orig: 147, 145
+  offset: 0, 0
+  index: -1
+pelvis
+  rotate: false
+  xy: 501, 54
+  size: 246, 162
+  orig: 246, 162
+  offset: 0, 0
+  index: -1
+rightdagger
+  rotate: false
+  xy: 642, 339
+  size: 283, 164
+  orig: 283, 164
+  offset: 0, 0
+  index: -1
+righthand
+  rotate: false
+  xy: 642, 218
+  size: 285, 119
+  orig: 285, 119
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: true
+  xy: 2, 2
+  size: 63, 355
+  orig: 63, 355
+  offset: 0, 0
+  index: -1
