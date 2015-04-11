@@ -6,7 +6,7 @@ filter: Linear,Linear
 repeat: none
 belt
   rotate: true
-  xy: 625, 347
+  xy: 916, 762
   size: 118, 85
   orig: 118, 85
   offset: 0, 0
@@ -27,35 +27,35 @@ cloak
   index: -1
 head
   rotate: false
-  xy: 710, 762
+  xy: 648, 762
   size: 266, 250
   orig: 266, 250
   offset: 0, 0
   index: -1
 leftarm
-  rotate: false
-  xy: 826, 408
+  rotate: true
+  xy: 760, 411
   size: 101, 104
   orig: 101, 104
   offset: 0, 0
   index: -1
 leftfeet
   rotate: false
-  xy: 710, 633
+  xy: 648, 633
   size: 234, 127
   orig: 234, 127
   offset: 0, 0
   index: -1
 lefthand
-  rotate: true
-  xy: 712, 311
+  rotate: false
+  xy: 316, 163
   size: 87, 122
   orig: 87, 122
   offset: 0, 0
   index: -1
 leftlegguard
   rotate: true
-  xy: 836, 276
+  xy: 916, 882
   size: 130, 85
   orig: 130, 85
   offset: 0, 0
@@ -63,13 +63,13 @@ leftlegguard
 leper.sprite.attack_chop
   rotate: false
   xy: 2, 467
-  size: 706, 545
-  orig: 706, 545
+  size: 644, 545
+  orig: 644, 545
   offset: 0, 0
   index: -1
 rightarm
   rotate: false
-  xy: 316, 76
+  xy: 648, 437
   size: 110, 75
   orig: 110, 75
   offset: 0, 0
@@ -83,21 +83,21 @@ rightfeet
   index: -1
 rightfeet2
   rotate: false
-  xy: 710, 514
+  xy: 648, 514
   size: 233, 117
   orig: 233, 117
   offset: 0, 0
   index: -1
 righthand
   rotate: false
-  xy: 712, 400
+  xy: 883, 514
   size: 112, 112
   orig: 112, 112
   offset: 0, 0
   index: -1
 rightlegguard
   rotate: true
-  xy: 316, 153
+  xy: 884, 628
   size: 132, 109
   orig: 132, 109
   offset: 0, 0
@@ -114,5 +114,18 @@ underbelt
   xy: 204, 101
   size: 184, 110
   orig: 184, 110
+  offset: 0, 0
+  index: -1
+
+leper2.png
+size: 512,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+leper.sprite.defend
+  rotate: false
+  xy: 2, 2
+  size: 503, 637
+  orig: 503, 637
   offset: 0, 0
   index: -1
