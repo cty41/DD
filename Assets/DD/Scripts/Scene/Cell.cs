@@ -50,4 +50,18 @@ public class Cell : MonoBehaviour
 		
 		cellSprite.sprite = Resources.Load (path, typeof(Sprite)) as Sprite;
 	}
+	
+	public void InitCell(string path, Vector3 vec, bool collider)
+	{
+		cellSprite.sprite = Resources.Load (path, typeof(Sprite)) as Sprite;
+		
+		this.transform.position = vec;
+		
+		if (collider)
+		{
+			BoxCollider2D collider2D = new BoxCollider2D();
+			
+			collider2D = gameObject.AddComponent<BoxCollider2D>();
+		}
+	}
 }

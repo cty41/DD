@@ -2,67 +2,45 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Scene : MonoBehaviour
+public class Corrider : MonoBehaviour
 {
-	// enum
-	public enum SceneType
-	{
-		ST_Corrider = 0,
-		ST_Room = 1
-	};
-	// pulbic
+// Properties:
+	
+	/* public*/
 	public List<string> Cells;
-    public List<Cell> midLayer;
-    public List<Cell> bgLayer;
-	public SceneType m_eSceneType;
-
-    public float cellWidth { get; private set; }
-    public float cellHeight { get; private set; }
-    public float cellPosY { get; private set; }
-    public float sceneStartX, sceneEndX;
-
+	public float height { get; private set; }
+	public float width { get; private set; }
+	/* private*/
+	
+// Functions
+	/* Use this for awake class*/
 	void Awake()
 	{
-        midLayer = new List<Cell>();
-        bgLayer = new List<Cell>();
+		
 	}
-	
+	/* Use this for initialization*/
 	void Start ()
 	{
-
+	
 	}
-
+	/* Update is called once per frame*/
 	void Update ()
 	{
-		
-	}
-
-	public void Init(SceneType type)
-	{
-		m_eSceneType = type;
-		
-		switch (m_eSceneType)
-		{
-			case SceneType.ST_Corrider:
-			{
-				Corrider corrider = new Corrider();
-				corrider.Init();
-				cellHeight = corrider.height;
-			}
-			break;
-			
-			case SceneType.ST_Room:
-			{
-				Room room = new Room();
-				room.Init();
-				cellHeight = room.height;
-			}
-			break;
-		}
-	}
 	
-	public void InitCorrider()
+	}
+	/* Update fixed time*/
+	void FixedUpdate()
 	{
+	}
+	/* Use this when destroy*/
+	void OnDestroy()
+	{
+	}
+	/* Init*/
+	public void Init()
+	{
+		Cells = new List<string>();
+		
 		Cells.Add ("Scene/weald.corridor_door.basic");
 		Cells.Add ("Scene/weald.corridor_wall.01");
 		Cells.Add ("Scene/weald.corridor_wall.02");
@@ -77,14 +55,16 @@ public class Scene : MonoBehaviour
 			wall.Init (i, path, -1, 0);
 			if (i == 0)
 			{
-				cellPosY = wall.transform.position.y;
+				/*cellPosY = wall.transform.position.y;
 				cellWidth = wall.cellSprite.sprite.bounds.size.x;
 				cellHeight = wall.cellSprite.sprite.bounds.size.y;
-				sceneStartX = wall.transform.position.x - cellWidth * 0.5f;
+				sceneStartX = wall.transform.position.x - cellWidth * 0.5f;*/
+				width = Cells.Count * wall.cellSprite.sprite.bounds.size.x;
+				height = wall.cellSprite.sprite.bounds.size.y;
 			}
 			else if (i == Cells.Count - 1)
 			{
-				sceneEndX = wall.transform.position.x + cellWidth * 0.5f;
+				//sceneEndX = wall.transform.position.x + cellWidth * 0.5f;
 			}
 			
 			i++;

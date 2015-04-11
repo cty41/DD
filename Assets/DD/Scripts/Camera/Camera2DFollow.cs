@@ -73,7 +73,7 @@ public class Camera2DFollow : MonoBehaviour
 		{
 			return;
 		}
-        float scale = targetPawn.GetComponent<Pawn>().uniformScale;
+        /*float scale = targetPawn.GetComponent<Pawn>().uniformScale;
 		// By default the target x and y coordinates of the camera are it's current x and y coordinates.
 		float targetX = transform.position.x;
 		float targetY = transform.position.y;
@@ -81,38 +81,33 @@ public class Camera2DFollow : MonoBehaviour
         //camera x follow hero pos, y fixed on cell pos Y, TODO later -ty.cheng
         Scene bg = GameInfo.instance.backGround;
         float camWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
-        targetX = m_Player.position.x + pawnWidth * 0.5f * scale;
-        float minX = bg.sceneStartX + camWidth;
-        float maxX = bg.sceneEndX - camWidth;
-        //Debug.Log("[CAM DEBUG] ==> targetX " + targetX + " minX " + minX + " maxX " + maxX + " camWidth " + camWidth);
-        targetX = Mathf.Clamp(targetX, minX, maxX);
+        //targetX = m_Player.position.x + pawnWidth * 0.5f * scale;
+        targetX = m_Player.position.x;
+        
+        //float minX = bg.sceneStartX + camWidth;
+        //float maxX = bg.sceneEndX - camWidth;
+        
+        //targetX = Mathf.Clamp(targetX, minX, maxX);
 
-        //Ycam = Ycellcenter - CellHalfHeight + deltaY,YcellCenter = 0(world)
-        //deltaY = half cam height - UIHeight
         //hard code 100 is pixel per unit for other sprites, refactor later
         float cellPosY = GameInfo.instance.backGround.cellPosY;
         targetY = (cellPosY - cellHeight / 2 + Camera.main.orthographicSize - UIMgr.instance.CombatUIHeight / 100.0f);
-        //Debug.Log("cellHeight " + cellHeight + " orthographicSize " + Camera.main.orthographicSize);
-		// If the player has moved beyond the x margin...
-        //if (CheckXMargin())
-        //{
-        //    // ... the target x coordinate should be a Lerp between the camera's current x position and the player's current x position.
-        //    targetX = Mathf.Lerp(transform.position.x, m_Player.position.x, xSmooth*Time.deltaTime);
-        //}
-		
-        //// If the player has moved beyond the y margin...
-        //if (CheckYMargin())
-        //{
-        //    // ... the target y coordinate should be a Lerp between the camera's current y position and the player's current y position.
-        //    targetY = Mathf.Lerp(transform.position.y, m_Player.position.y, ySmooth*Time.deltaTime);
-        //}
-		
-        //// The target x and y coordinates should not be larger than the maximum or smaller than the minimum.
-        //targetX = Mathf.Clamp(targetX, minXAndY.x, maxXAndY.x);
-        //targetY = Mathf.Clamp(targetY, minXAndY.y, maxXAndY.y);
 		
 		// Set the camera's position to the target position with the same z component.
         oldPos = transform.position;
+		transform.position = new Vector3(targetX, targetY, transform.position.z);*/
+		float targetX = m_Player.transform.position.x;
+		float targetY;
+		float cellHeight = GameInfo.instance.backGround.cellHeight;
+		float cellPosY = GameInfo.instance.backGround.cellPosY;
+		// y = screenH - canvasH
+		targetY = cellPosY -  cellHeight / 2 + Camera.main.orthographicSize - UIMgr.instance.CombatUIHeight / 100.0f;
+		
+		Scene bg = GameInfo.instance.backGround;
+		float minX = bg.sceneStartX - bg.cellWidth;
+		float maxX = bg.sceneStartX + bg.cellWidth;
+		targetX = Mathf.Clamp(targetX, minX, maxX);
+		
 		transform.position = new Vector3(targetX, targetY, transform.position.z);
 	}
 }

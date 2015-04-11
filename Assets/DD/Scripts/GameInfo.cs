@@ -54,7 +54,7 @@ public class GameInfo : MonoBehaviour
 
 	public void SpawnScene()
 	{
-		backGround.Init();
+		backGround.Init(Scene.SceneType.ST_Corrider);
 		//backGround.Cells.Add (cell);
 	}
 
@@ -99,14 +99,14 @@ public class GameInfo : MonoBehaviour
 
     public bool IsReachedSceneBound(Pawn p)
     {
-        if (p.velocity.x > 0.0f)
+        /*if (p.velocity.x > 0.0f)
         {
             return p.transform.position.x >= backGround.sceneEndX - p.boundBox.size.x * 0.5f;
         }
         else if (p.velocity.x < 0.0f)
         {
             return p.transform.position.x <= backGround.sceneStartX + p.boundBox.size.x * 0.5f;
-        }
+        }*/
 
         return false;
     }
