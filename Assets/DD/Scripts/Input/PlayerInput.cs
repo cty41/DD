@@ -52,6 +52,10 @@ public class PlayerInput : MonoBehaviour
         {
             p.SetVelocity(new Vector2(4, 0));
         }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+			GameInfo.instance.SpawnRoom();
+        }
         else
         {
             p.SetVelocity(Vector2.zero);

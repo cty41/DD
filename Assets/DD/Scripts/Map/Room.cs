@@ -8,8 +8,10 @@ public class Room : MonoBehaviour
 	/* public*/
 	public float height { get; private set; }
 	public float width { get; private set; }
+	public float sceneStartX { get; private set; }
+	public float sceneEndX { get; private set; }
 	/* private*/
-	
+	private Cell wall;
 // Functions
 	/* Use this for awake class*/
 	void Awake()
@@ -37,9 +39,17 @@ public class Room : MonoBehaviour
 	/* Init*/
 	public void Init()
 	{
-		Cell wall = Instantiate(Resources.Load("Scene/Corridor", typeof(Cell))) as Cell;
-		wall.Init(0, "Scene/weald.room_wall.corruptedcabin", -1, 0);
+		Debug.Log("Room init");
+		wall = Instantiate(Resources.Load("Map/Cell", typeof(Cell))) as Cell;
+		wall.Init(0, "Map/weald.room_wall.corruptedcabin", -1, 0);
 		width = wall.cellSprite.sprite.bounds.size.x;
 		height = wall.cellSprite.sprite.bounds.size.y;
+		sceneStartX = wall.transform.position.x - width * 0.5f;
+		sceneEndX = wall.transform.position.x + width * 0.5f;
+	}
+	
+	public void CleanMap()
+	{
+		Destroy(wall.gameObject);
 	}
 }

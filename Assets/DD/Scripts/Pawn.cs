@@ -55,7 +55,7 @@ namespace AssemblyCSharpfirstpass
             GameObject full = healthBar.transform.Find("healthbar_full").gameObject;
             Debug.Log("find the real health bar " + full);
             healthBarImage = full.GetComponent<Image>();
-            healthBarImage.fillAmount = 1.0f;
+            //healthBarImage.fillAmount = 1.0f;
 
             transform.localScale = new Vector3(uniformScale, uniformScale, uniformScale);
 
@@ -70,7 +70,7 @@ namespace AssemblyCSharpfirstpass
         void FixedUpdate()
         {
             transform.position += new Vector3(velocity.x, velocity.y, 0) * Time.smoothDeltaTime;
-            GameInfo.instance.ClampInScene(this);
+            //GameInfo.instance.ClampInScene(this);
         }
 
 

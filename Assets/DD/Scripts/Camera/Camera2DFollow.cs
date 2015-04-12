@@ -100,14 +100,16 @@ public class Camera2DFollow : MonoBehaviour
 		float targetY;
 		float cellHeight = GameInfo.instance.backGround.cellHeight;
 		float cellPosY = GameInfo.instance.backGround.cellPosY;
-		// y = screenH - canvasH
 		targetY = cellPosY -  cellHeight / 2 + Camera.main.orthographicSize - UIMgr.instance.CombatUIHeight / 100.0f;
 		
-		Scene bg = GameInfo.instance.backGround;
-		float minX = bg.sceneStartX - bg.cellWidth;
-		float maxX = bg.sceneStartX + bg.cellWidth;
+		Map bg = GameInfo.instance.backGround;
+		float camWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
+		float minX = bg.sceneStartX + camWidth;
+		float maxX = bg.sceneEndX - camWidth;
+		
 		targetX = Mathf.Clamp(targetX, minX, maxX);
 		
+		oldPos = transform.position;
 		transform.position = new Vector3(targetX, targetY, transform.position.z);
 	}
 }
