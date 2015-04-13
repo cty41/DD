@@ -23,6 +23,9 @@ public class PlayerInput : MonoBehaviour
 		Vector3 heroPosition = GameInfo.instance.heroTeam.Heroes[0].transform.position;
 		Vector3 mousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
         Pawn p = hero.GetComponent<Pawn>();
+
+        if (GameInfo.instance.IsInCombat())
+            return;
         //if (Input.GetMouseButton (0))
         //{
         //    if (Mathf.Abs (mousePosition.x - heroPosition.x) < 2)

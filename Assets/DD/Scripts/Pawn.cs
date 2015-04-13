@@ -49,6 +49,7 @@ namespace AssemblyCSharpfirstpass
             spineMesh = gameObject.GetComponent<MeshRenderer>();
             boundBox = gameObject.GetComponent<BoxCollider2D>();
             skelAnim = gameObject.GetComponent<SkeletonAnimation>();
+            skelAnim.state.Complete += CompleteDelegate;
             skelAnim.AnimationName = "idle";
             skelAnim.loop = true;
 
@@ -57,9 +58,9 @@ namespace AssemblyCSharpfirstpass
             healthBarImage = full.GetComponent<Image>();
             //healthBarImage.fillAmount = 1.0f;
 
-            transform.localScale = new Vector3(uniformScale, uniformScale, uniformScale);
+            transform.localScale = transform.localScale * uniformScale;
 
-            float posX = 0;
+            float posX = transform.position.x;
             float posY = 0 - GameInfo.instance.backGround.cellHeight * 0.5f + 0.3f;// +boundBox.bounds.size.y * uniformScale;
             Debug.Log("Pawn  boundBox size X " + boundBox.bounds.size.y * uniformScale + " cell height " + GameInfo.instance.backGround.cellHeight);
 
@@ -140,13 +141,18 @@ namespace AssemblyCSharpfirstpass
 		{
 			health -= damage;
             Debug.Log(gameObject + " Take Damage " + damage + " Current Health " + health);
-			if (health <= 0)
-			{
-				health = 0;
-				//die
+            if (health <= 0)
+            {
+                health = 0;
+                //die
                 Debug.Log(gameObject + " Died ! ");
                 CombatMgr.instance.HandleCombatEnded(this);
-			}
+            }
+            else
+            {
+                skelAnim.AnimationName = "defend";
+                skelAnim.loop = false;
+            }
 		}
 
 		public void StartAction()
@@ -248,6 +254,16 @@ namespace AssemblyCSharpfirstpass
 
         public void UseSkill(Pawn target)
         {
+            if (IsPlayer)
+            {
+                skelAnim.AnimationName = "attack";
+                skelAnim.loop = false;
+            }
+            else
+            {
+                skelAnim.AnimationName = "attack_lunge";
+                skelAnim.loop = false;
+            }
             if (CurrentSkill.DamageMod > 0)
             {
                 target.TakeDamage(Convert.ToInt32(attack * CurrentSkill.DamageMod));
@@ -260,6 +276,10 @@ namespace AssemblyCSharpfirstpass
          
         }
 
+        void CompleteDelegate(Spine.AnimationState state, int trackIndex, int loopCount)
+        {
+            Debug.Log("anim complete " + state.GetCurrent(trackIndex).Animation.Name);
+        }
 
 	}
 }

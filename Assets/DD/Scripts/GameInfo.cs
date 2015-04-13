@@ -41,7 +41,7 @@ public class GameInfo : MonoBehaviour
         //refactor here?, ty.cheng
         heroTeam.Init();
         heroTeam.Heroes.Add(hero);
-        Debug.Log("");
+        
         CombatMgr.instance.AddPawn(hero);
     }
 
@@ -50,6 +50,12 @@ public class GameInfo : MonoBehaviour
         GameObject monster = Instantiate(Resources.Load("Monsters/brigand_cutthroat", typeof(GameObject))) as GameObject;
         Debug.Log("GameInfo SpawnMonster" + monster);
         CombatMgr.instance.AddPawn(monster);
+        Vector3 pos = Camera.main.transform.position;
+        pos.x += Camera2DFollow.instance.cameraXOffset;
+        pos.z = 0;
+        monster.transform.position = pos;
+        Debug.Log("SpawnMonster loc x " + pos.x + " y " + pos.y + " z " + pos.z);
+        monster.transform.localScale = new Vector3(-monster.transform.localScale.x, monster.transform.localScale.y, monster.transform.localScale.z);
     }
 
 	public void SpawnScene()

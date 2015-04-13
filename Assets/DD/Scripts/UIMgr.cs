@@ -10,12 +10,13 @@ public class UIMgr : MonoBehaviour {
 	// Use this for initialization
 
     //use for combat debug
-    private bool IsInCombat = false;
+    public bool IsInCombat ;//{ get; private set; }
     public float CombatUIHeight { get; private set; }
 
     void Awake()
     {
         instance = this;
+        IsInCombat = false;
     }
 	void Start () {
         GameObject decor = GameObject.Find("decor_left");
