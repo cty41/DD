@@ -54,14 +54,13 @@ public class GameInfo : MonoBehaviour
 
 	public void SpawnScene()
 	{
-		backGround.Init(Map.MapType.MT_Corrider);
-		//backGround.Cells.Add (cell);
+		backGround.LoadMap(0);
 	}
 	
 	public void SpawnRoom()
 	{
-		StartCoroutine(backGround.CleanMap());
-		//backGround.Cells.Add (cell);
+		int idx = (backGround.iCurMapIndex + 1) % 2;
+		StartCoroutine(backGround.ChangeMap(idx));
 	}
 
 	public void InitCamera()

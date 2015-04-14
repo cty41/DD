@@ -18,17 +18,32 @@ public class Map : MonoBehaviour
     public float cellHeight { get; private set; }
     public float cellPosY { get; private set; }
     public float sceneStartX, sceneEndX;
+    public int iCurMapIndex{ get; private set; }
     // private
 	private Corrider corrider;
 	private Room room;
+	private IList<MapType> maps;
 
+	public Map()
+	{
+		maps = new List<MapType>();
+		maps.Add(MapType.MT_Room);
+		maps.Add(MapType.MT_Corrider);
+		
+		iCurMapIndex = 0;
+	}
+	
 	void Awake()
 	{
 	}
 	
 	void Start ()
 	{
-
+		maps = new List<MapType>();
+		maps.Add(MapType.MT_Room);
+		maps.Add(MapType.MT_Corrider);
+		
+		iCurMapIndex = 0;
 	}
 
 	void Update ()
@@ -46,6 +61,7 @@ public class Map : MonoBehaviour
 			{
 				corrider = new Corrider();
 				corrider.Init();
+				
 				cellHeight = corrider.height;
 				cellWidth = corrider.width;
 				sceneStartX = corrider.sceneStartX;
@@ -57,6 +73,7 @@ public class Map : MonoBehaviour
 			{
 				room = new Room();
 				room.Init();
+				
 				cellHeight = room.height;
 				cellWidth = room.width;
 				sceneStartX = room.sceneStartX;
@@ -66,36 +83,30 @@ public class Map : MonoBehaviour
 		}
 	}
 
-	public IEnumerator CleanMap()
+	public IEnumerator ChangeMap(int index)
 	{
 		float fadeTime = GameInfo.instance.GetComponent<Fading>().BeginFade(1);
 		yield return new WaitForSeconds(fadeTime);
 		
 		switch (m_eSceneType)
 		{
-		case MapType.MT_Corrider:
-			corrider.CleanMap();
+			case MapType.MT_Corrider:
+				corrider.CleanMap();
 			break;
-			
-		case MapType.MT_Room:
-			Debug.Log("room clean map");
-			room.CleanMap();
+				
+			case MapType.MT_Room:
+				room.CleanMap();
 			break;
 		}
-		// hard code for test
-		Init(MapType.MT_Room);
 		
 		GameInfo.instance.GetComponent<Fading>().BeginFade(-1);
+		LoadMap(index);
 	}
 	
-	public void LoadMap()
+	public void LoadMap(int index)
 	{
-		CleanMap();
-		Init (MapType.MT_Room);
-	}
-	
-	public void ChangeMap()
-	{
-	
+		iCurMapIndex = index;
+		
+		Init (maps[iCurMapIndex]);
 	}
 }
