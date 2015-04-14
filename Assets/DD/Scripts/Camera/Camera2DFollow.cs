@@ -16,6 +16,7 @@ public class Camera2DFollow : MonoBehaviour
     private float pawnWidth;
     private float pawnHeight;
     private float cellHeight;
+    public float cameraXOffset { get; private set; }
     public Vector3 oldPos { get; private set; }
 	public static Camera2DFollow instance { get; private set; }
 	
@@ -38,6 +39,7 @@ public class Camera2DFollow : MonoBehaviour
         BoxCollider2D pBox = targetPawn.GetComponent<BoxCollider2D>();
         pawnWidth = pBox.size.x;
         pawnHeight = pBox.size.y;
+        cameraXOffset = 2;
         Debug.Log("m_player " + GameInfo.instance.heroTeam.Heroes + " pawnWidth " + pawnWidth + " pawnHeight " + pawnHeight);
         cellHeight = GameInfo.instance.backGround.cellHeight;
 	}
@@ -96,7 +98,7 @@ public class Camera2DFollow : MonoBehaviour
 		// Set the camera's position to the target position with the same z component.
         oldPos = transform.position;
 		transform.position = new Vector3(targetX, targetY, transform.position.z);*/
-		float targetX = m_Player.transform.position.x;
+        float targetX = m_Player.transform.position.x + cameraXOffset;
 		float targetY;
 		float cellHeight = GameInfo.instance.backGround.cellHeight;
 		float cellPosY = GameInfo.instance.backGround.cellPosY;
