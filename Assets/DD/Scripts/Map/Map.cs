@@ -7,8 +7,9 @@ public class Map : MonoBehaviour
 	// enum
 	public enum MapType
 	{
-		MT_Corrider = 0,
-		MT_Room = 1
+		MT_None = 0,
+		MT_Corrider = 1,
+		MT_Room = 2
 	};
 	// pulbic
 	public List<string> Cells;
@@ -44,6 +45,10 @@ public class Map : MonoBehaviour
 		maps.Add(MapType.MT_Corrider);
 		
 		iCurMapIndex = 0;
+		
+		// TODO: for map
+		Maze maze = new Maze();
+		maze.Init();
 	}
 
 	void Update ()
