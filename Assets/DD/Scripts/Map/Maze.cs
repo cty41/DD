@@ -54,18 +54,17 @@ public class Maze : MonoBehaviour
 	// Init properties
 	public void Init()
 	{
-		R = new bool[10, 10];
-		D = new bool[10, 10];
-		v = new bool[10, 10];
-		row = 5;
-		col = 5;
+        row = 5;
+        col = 5;
+
+		R = new bool[row, col];
+        D = new bool[row, col];
+        v = new bool[row, col];
+
+        dfs(row-1, col-1);
 		
-		dfs(0, 0);
-		
-		InitMiniMapInfos();
-		
-		CreateUIElement(Map.MapType.MT_Room, 0, 0);
-		CreateUIElement(Map.MapType.MT_Room, 0, 100);
+		//InitMiniMapInfos();
+        InitUIElements();
 	}
 	// create ui IElements
 	void CreateUIElement(Map.MapType type, int x, int y)
@@ -83,7 +82,7 @@ public class Maze : MonoBehaviour
 			break;
 		}
 		// TODO:hard code for test
-		x -= 300;
+		x -= 500;
 		GameObject panelMap = GameObject.Find("panel_map");
 		
 		if (panelMap != null)
@@ -142,4 +141,38 @@ public class Maze : MonoBehaviour
 			}
 		}
 	}
+
+    void InitUIElements()
+    {
+        int width = -80;
+        int offsetX = -30;
+
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < col; j++)
+            {
+                CreateUIElement(Map.MapType.MT_Room, j * width, i * width);
+                if (D[i, j])
+                {
+                    // means collider
+                    CreateUIElement(Map.MapType.MT_Corrider, j * width, i * width + offsetX);
+                }
+                else
+                {
+                    // means null
+                }
+
+                if (R[i, j])
+                {
+                    // means collider
+                    CreateUIElement(Map.MapType.MT_Corrider, j * width + offsetX, i * width);
+                }
+                else
+                {
+                    // means null
+                }
+            }
+        }
+        
+    }
 }
